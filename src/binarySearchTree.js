@@ -5,3 +5,34 @@ export class Node {
         this.right = null;
     }
 }
+
+export class Tree {
+    constructor([]){
+        this.root = buildTree();
+    }
+
+    buildTree(){
+        if (array.length === 0) {
+            return null;
+        }
+
+        // Sort the array and remove duplicates
+        array = [...new Set(array)].sort((a, b) => a - b);
+
+        return this.buildTreeHelper(array, 0, array.length - 1);
+    }
+
+    buildTreeHelper(array, start, end) {
+        if (start > end) {
+            return null;
+        }
+
+        const mid = Math.floor((start + end) / 2);
+        const node = new Node(array[mid]);
+
+        node.left = this.buildTreeHelper(array, start, mid - 1);
+        node.right = this.buildTreeHelper(array, mid + 1, end);
+
+        return node;
+    }
+}
