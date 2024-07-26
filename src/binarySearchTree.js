@@ -67,20 +67,41 @@ export class Tree {
         } 
     }  
 
-    deleteItem(value){
-        let current = this.root;
-        let prev;
-        while(current){
-            if(current.data < value){
-                prev = current;
-                current = current.left;
-            } else if (current.data > value){
-                prev = current;
-                current = current.right;
-            } else {// data === value
-                current = null;
+    deleteItem(root, value){
+        // Base case
+        if (root === null){
+            return root;
+        }
+
+        // If the key to be deleted is smaller than the root's key, then it lies in the left subtree
+        if (value < root.value){
+            root.left = this.deleteItem(root.left, value);
+        } else if (value > root.value){
+            root.right = this.deleteItem(root.right, value);
+        } else { // If key is same as root's key, then this is the node to be deleted
+            // Node with only one child or no child
+            if (root.left === null){
+                return root.right;
+            } else if (root.right === null){
+                return root.left;
             }
-        } 
+
+            // Node with two children: Get the inorder successor (smallest in the right subtree)
+            root.value = this.minValue(root.right);
+
+            //Delete the inorder successor
+            root.right = this.deleteItem(root.right, root.value);
+        }
+        return root; 
+    }
+
+    minValue(node){
+        let minVal = node.value;
+        while(node.left !== null){
+            minv = node.left.value;
+            node = node.left;
+        }
+        return minVal;
     }
 
     find(value){
