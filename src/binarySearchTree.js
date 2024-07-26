@@ -21,7 +21,6 @@ export class Tree {
 
         return this.buildTreeHelper(array, 0, array.length - 1);
     }
-
     buildTreeHelper(array, start, end) {
         if (start > end) {
             return null;
@@ -94,11 +93,10 @@ export class Tree {
         }
         return root; 
     }
-
     minValue(node){
         let minVal = node.value;
         while(node.left !== null){
-            minv = node.left.value;
+            minVal = node.left.value;
             node = node.left;
         }
         return minVal;
@@ -106,10 +104,11 @@ export class Tree {
 
     find(value){
         let current = this.root;
+
         while(current){
-            if(current.data < value){
+            if(value < current.data){
                 current = current.left;
-            } else if (current.data > value){
+            } else if (value > current.data){
                 current = current.right;
             } else {// data === value
                 return current;//return the node itself
@@ -132,3 +131,32 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
       prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
     }
 };
+
+// deleteItem(value) {
+//     this.root = this.deleteRec(this.root, value);
+// }
+
+// deleteRec(root, value) {
+//     if (root === null) {
+//         return root;
+//     }
+
+//     if (value < root.data) {
+//         root.left = this.deleteRec(root.left, value);
+//     } else if (value > root.data) {
+//         root.right = this.deleteRec(root.right, value);
+//     } else {
+//         // Node to be deleted found
+//         if (root.left === null) {
+//             return root.right;
+//         } else if (root.right === null) {
+//             return root.left;
+//         }
+
+//         // Node with two children: Get the in-order successor
+//         root.data = this.minValue(root.right);
+//         root.right = this.deleteRec(root.right, root.data);
+//     }
+
+//     return root;
+// }
