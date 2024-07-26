@@ -7,11 +7,11 @@ export class Node {
 }
 
 export class Tree {
-    constructor([]){
-        this.root = buildTree();
+    constructor(array){
+        this.root = this.buildTree(array);
     }
 
-    buildTree(){
+    buildTree(array){
         if (array.length === 0) {
             return null;
         }
@@ -119,7 +119,7 @@ export class Tree {
 }
 
 //code from TOP
-const prettyPrint = (node, prefix = "", isLeft = true) => {
+export const prettyPrint = (node, prefix = "", isLeft = true) => {
     if (node === null) {
       return;
     }
