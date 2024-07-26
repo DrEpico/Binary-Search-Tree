@@ -21,6 +21,7 @@ export class Tree {
 
         return this.buildTreeHelper(array, 0, array.length - 1);
     }
+
     buildTreeHelper(array, start, end) {
         if (start > end) {
             return null;
@@ -60,43 +61,39 @@ export class Tree {
                     parent.right = newNode;
                     return;
                 }
-            } else {// data === value
+            } else { // data === value
                 return;
             }
         } 
-    }  
+    }
 
-    deleteItem(root, value){
-        // Base case
-        if (root === null){
+    deleteItem(root, value) {
+        if (root === null) {
             return root;
         }
 
-        // If the key to be deleted is smaller than the root's key, then it lies in the left subtree
-        if (value < root.value){
+        if (value < root.data) {
             root.left = this.deleteItem(root.left, value);
-        } else if (value > root.value){
+        } else if (value > root.data) {
             root.right = this.deleteItem(root.right, value);
-        } else { // If key is same as root's key, then this is the node to be deleted
-            // Node with only one child or no child
-            if (root.left === null){
+        } else {
+            if (root.left === null) {
                 return root.right;
-            } else if (root.right === null){
+            } else if (root.right === null) {
                 return root.left;
             }
 
-            // Node with two children: Get the inorder successor (smallest in the right subtree)
-            root.value = this.minValue(root.right);
+            root.data = this.minValue(root.right);
 
-            //Delete the inorder successor
-            root.right = this.deleteItem(root.right, root.value);
+            root.right = this.deleteItem(root.right, root.data);
         }
-        return root; 
+        return root;
     }
-    minValue(node){
-        let minVal = node.value;
-        while(node.left !== null){
-            minVal = node.left.value;
+
+    minValue(node) {
+        let minVal = node.data;
+        while (node.left !== null) {
+            minVal = node.left.data;
             node = node.left;
         }
         return minVal;
@@ -110,25 +107,24 @@ export class Tree {
                 current = current.left;
             } else if (value > current.data){
                 current = current.right;
-            } else {// data === value
-                return current;//return the node itself
+            } else { // data === value
+                return current; // return the node itself
             }
         } 
         return null;
     }
 }
 
-//code from TOP
 export const prettyPrint = (node, prefix = "", isLeft = true) => {
     if (node === null) {
-      return;
+        return;
     }
     if (node.right !== null) {
-      prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
+        prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
     }
     console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
     if (node.left !== null) {
-      prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
+        prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
     }
 };
 
