@@ -5,4 +5,4 @@ const tree = new Tree(array);
 
 console.log(tree.root);
 
-// console.log(prettyPrint(tree.root));
+console.log(prettyPrint(tree.root));
