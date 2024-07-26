@@ -35,6 +35,67 @@ export class Tree {
 
         return node;
     }
+
+    insert(value){
+        const newNode = new Node(value);
+
+        if (!this.root) {
+            this.root = newNode;
+            return;
+        }
+
+        let current = this.root;
+        let parent = null;
+
+        while(current){
+            parent = current;
+            if(value < current.data){
+                current = current.left;
+                if(!current){
+                    parent.left = newNode;
+                    return;
+                }
+            } else if (value > current.data){
+                current = current.right;
+                if(!current){
+                    parent.right = newNode;
+                    return;
+                }
+            } else {// data === value
+                return;
+            }
+        } 
+    }  
+
+    deleteItem(value){
+        let current = this.root;
+        let prev;
+        while(current){
+            if(current.data < value){
+                prev = current;
+                current = current.left;
+            } else if (current.data > value){
+                prev = current;
+                current = current.right;
+            } else {// data === value
+                current = null;
+            }
+        } 
+    }
+
+    find(value){
+        let current = this.root;
+        while(current){
+            if(current.data < value){
+                current = current.left;
+            } else if (current.data > value){
+                current = current.right;
+            } else {// data === value
+                return current;//return the node itself
+            }
+        } 
+        return null;
+    }
 }
 
 //code from TOP
