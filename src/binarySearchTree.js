@@ -241,6 +241,26 @@ export class Tree {
 
         return checkHeight(this.root) !== -1; // Tree is balanced if checkHeight does not return -1
     }
+
+    rebalance() {
+        const nodes = [];
+
+        // Helper function to perform in-order traversal and collect nodes
+        const inOrderCollect = (node) => {
+            if (node === null) {
+                return;
+            }
+            inOrderCollect(node.left);
+            nodes.push(node.data);
+            inOrderCollect(node.right);
+        };
+
+        // Collect all nodes in sorted order
+        inOrderCollect(this.root);
+
+        // Rebuild the tree using the collected nodes
+        this.root = this.buildTree(nodes);
+    }
 }
 
 export const prettyPrint = (node, prefix = "", isLeft = true) => {
