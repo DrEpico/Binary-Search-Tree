@@ -138,6 +138,24 @@ export class Tree {
             }
         }
     }
+
+    inOrder(callback) {
+        if (typeof callback !== 'function') {
+            throw new Error('A callback function is required');
+        }
+
+        const inOrderHelper = (node) => {
+            if (node === null) {
+                return;
+            }
+            inOrderHelper(node.left);
+            callback(node);
+            inOrderHelper(node.right);
+        };
+
+        inOrderHelper(this.root);
+    }
+
 }
 
 export const prettyPrint = (node, prefix = "", isLeft = true) => {
