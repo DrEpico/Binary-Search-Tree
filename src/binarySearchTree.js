@@ -201,6 +201,28 @@ export class Tree {
         return Math.max(leftHeight, rightHeight) + 1; // Height is max of left or right height + 1
     }
 
+    depth(node) {
+        if (node === null) {
+            return -1; // If the node is null, depth is -1
+        }
+
+        let current = this.root;
+        let depth = 0;
+
+        while (current !== null) {
+            if (node.data < current.data) {
+                current = current.left;
+            } else if (node.data > current.data) {
+                current = current.right;
+            } else {
+                return depth; // Node found, return depth
+            }
+            depth++;
+        }
+
+        return -1; // If the node is not found in the tree, return -1
+    }
+
 }
 
 export const prettyPrint = (node, prefix = "", isLeft = true) => {
