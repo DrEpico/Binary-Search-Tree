@@ -223,6 +223,24 @@ export class Tree {
         return -1; // If the node is not found in the tree, return -1
     }
 
+    isBalanced() {
+        const checkHeight = (node) => {
+            if (node === null) {
+                return 0; // Base case: height of a null node is 0
+            }
+
+            const leftHeight = checkHeight(node.left);
+            const rightHeight = checkHeight(node.right);
+
+            if (leftHeight === -1 || rightHeight === -1 || Math.abs(leftHeight - rightHeight) > 1) {
+                return -1; // Tree is not balanced
+            }
+
+            return Math.max(leftHeight, rightHeight) + 1; // Return the height of the node
+        };
+
+        return checkHeight(this.root) !== -1; // Tree is balanced if checkHeight does not return -1
+    }
 }
 
 export const prettyPrint = (node, prefix = "", isLeft = true) => {
