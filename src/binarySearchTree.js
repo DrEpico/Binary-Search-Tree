@@ -190,6 +190,17 @@ export class Tree {
         postOrderHelper(this.root);
     }
 
+    height(node) {
+        if (node === null) {
+            return -1; // If the node is null, height is -1
+        }
+
+        const leftHeight = this.height(node.left);
+        const rightHeight = this.height(node.right);
+
+        return Math.max(leftHeight, rightHeight) + 1; // Height is max of left or right height + 1
+    }
+
 }
 
 export const prettyPrint = (node, prefix = "", isLeft = true) => {
