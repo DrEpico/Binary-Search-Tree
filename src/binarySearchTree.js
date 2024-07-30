@@ -173,6 +173,23 @@ export class Tree {
         preOrderHelper(this.root);
     }
 
+    postOrder(callback) {
+        if (typeof callback !== 'function') {
+            throw new Error('A callback function is required');
+        }
+
+        const postOrderHelper = (node) => {
+            if (node === null) {
+                return;
+            }
+            postOrderHelper(node.left);
+            postOrderHelper(node.right);
+            callback(node);
+        };
+
+        postOrderHelper(this.root);
+    }
+
 }
 
 export const prettyPrint = (node, prefix = "", isLeft = true) => {
