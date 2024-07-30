@@ -113,6 +113,31 @@ export class Tree {
         } 
         return null;
     }
+
+    levelOrder(callback){
+        if(typeof callback !== 'function'){
+            throw new Error('A callback function is required');
+        }
+
+        if (!this.root) {
+            return;
+        }
+
+        const queue = [this.root];
+
+        while (queue.length > 0) {
+            const node = queue.shift();
+            callback(node);
+            
+            if(node.left){
+                queue.push(node.left);
+            }
+
+            if(node.right){
+                queue.push(node.right);
+            }
+        }
+    }
 }
 
 export const prettyPrint = (node, prefix = "", isLeft = true) => {
