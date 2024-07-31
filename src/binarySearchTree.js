@@ -277,7 +277,7 @@ export const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 // Function to generate an array of random numbers less than 100
-const generateRandomArray = (size, max = 100) => {
+export const generateRandomArray = (size, max = 100) => {
     const array = [];
     for (let i = 0; i < size; i++) {
         array.push(Math.floor(Math.random() * max));
